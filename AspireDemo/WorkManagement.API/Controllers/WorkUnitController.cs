@@ -17,7 +17,7 @@ namespace WorkManagement.API.Controllers
         }
 
         [HttpPost(Name = "Post work unit")]
-        public IActionResult PostWork([FromBody] WorkUnitDto workUnitDto)
+        public IActionResult PostWork([FromBody] WorkUnitPostDto workUnitDto)
         {
             WorkUnit workUnit = new WorkUnit() { Text = workUnitDto.Text };
 
@@ -27,5 +27,13 @@ namespace WorkManagement.API.Controllers
 
             return new OkResult();
         }
+
+        [HttpGet(Name = "Get work units")]
+        public IEnumerable<WorkUnit> Get()
+        {
+            return _appDbContext.WorkUnits.ToArray();
+        }
     }
+
+
 }

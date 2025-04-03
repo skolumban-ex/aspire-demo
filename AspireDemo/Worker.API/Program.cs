@@ -1,7 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace WorkManagement.API
+namespace Worker.API
 {
     public class Program
     {
