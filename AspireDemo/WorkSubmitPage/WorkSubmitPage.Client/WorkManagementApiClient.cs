@@ -15,26 +15,20 @@ namespace WorkSubmitPage.Client
             _client = client;
         }
 
-        internal void PostWork(WorkUnitPostDto workUnitDto)
+        internal async void PostWork(WorkUnitPostDto workUnitDto)
         {
             // Serialize the request object to JSON
             var jsonBody = JsonSerializer.Serialize(workUnitDto);
             var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
             // Send the POST request
-            var postTask = _client.PostAsync(WorkUnitRelativeUrl, content);
-            postTask.Wait();
-
-            var response = postTask.Result;
+            var response = await _client.PostAsync(WorkUnitRelativeUrl, content);
         }
 
-        internal IEnumerable<WorkResult> GetWorkResults()
+        internal async Task<IEnumerable<WorkResult>> GetWorkResults()
         {
             // Send the POST request
-            var postTask = _client.GetAsync(WorkUnitRelativeUrl);
-            postTask.Wait();
-
-            var response = postTask.Result;
+            var response = await _client.GetAsync(WorkUnitRelativeUrl);
 
             // Ensure the response is successful
             response.EnsureSuccessStatusCode();
@@ -44,7 +38,7 @@ namespace WorkSubmitPage.Client
 
             // Deserialize the response JSON into a MyResponse object
             var responseObject = JsonSerializer.Deserialize<WorkResult[]>(responseBody, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-            return responseObject;
+            return responseObject.Reverse();
         }
 
         internal static WorkManagementApiClient CreateClient(string baseAddress)

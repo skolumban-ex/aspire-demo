@@ -52,7 +52,7 @@
         // Make sure to escape or encode the search query if needed
         apiClient.PostWork(new WorkUnitPostDto() { Text = submitWorkItem });
 
-        items = new List<WorkResult>(apiClient.GetWorkResults().Reverse());
+        items = new List<WorkResult>(await apiClient.GetWorkResults());
 
         StateHasChanged();
     }
