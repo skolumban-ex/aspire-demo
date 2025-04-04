@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text;
 
 namespace WorkManagement.API.Controllers
 {
@@ -10,16 +12,19 @@ namespace WorkManagement.API.Controllers
 
         private readonly AppDbContext _appDbContext;
 
-        public WorkUnitController(ILogger<WorkUnitController> logger, AppDbContext dbContext)
+        private readonly WorkerApiClient _workerClient;
+
+        public WorkUnitController(ILogger<WorkUnitController> logger, AppDbContext dbContext, WorkerApiClient workerClient)
         {
             _logger = logger;
             _appDbContext = dbContext;
+            _workerClient = workerClient;
         }
 
         [HttpPost(Name = "Post work unit")]
         public IActionResult PostWork([FromBody] WorkUnitPostDto workUnitDto)
         {
-            WorkUnit workUnit = new WorkUnit() { Text = workUnitDto.Text };
+            WorkUnit workUnit = PerformWork(workUnitDto);
 
             _appDbContext.WorkUnits.Add(workUnit);
 
@@ -27,6 +32,20 @@ namespace WorkManagement.API.Controllers
 
             return new OkResult();
         }
+
+        private WorkUnit PerformWork(WorkUnitPostDto workUnitDto)
+        {
+            WorkResult responseObject = _workerClient.GetWorkResult(workUnitDto);
+
+            return new WorkUnit()
+            {
+                Text = responseObject.Text,
+                StartCount = responseObject.StartCount,
+                EndCount = responseObject.EndCount,
+            };
+        }
+
+        
 
         [HttpGet(Name = "Get work units")]
         public IEnumerable<WorkUnit> Get()

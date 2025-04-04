@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using WorkManagement.API.Controllers;
 
 namespace WorkManagement.API
 {
@@ -22,6 +23,14 @@ namespace WorkManagement.API
             // Register DbContext with PostgreSQL
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
+
+            // Register HttpClient for a typed client
+            builder.Services.AddHttpClient<WorkerApiClient>(client =>
+            {
+                client.BaseAddress = new Uri(builder.Configuration["WorkerUrl"]);
+            });
+
+
 
             var app = builder.Build();
 
