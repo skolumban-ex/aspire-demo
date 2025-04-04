@@ -16,8 +16,7 @@
         "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
         "applicationUrl": "http://localhost:5202",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "WorkManagementUrl": "http://localhost:5044"
+          "ASPNETCORE_ENVIRONMENT": "Development"
         }
       },
       "https": {
@@ -27,8 +26,7 @@
         "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
         "applicationUrl": "https://localhost:7228;http://localhost:5202",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development",
-          "WorkManagementUrl": "https://localhost:7281"
+          "ASPNETCORE_ENVIRONMENT": "Development"
         }
       },
       "IIS Express": {
