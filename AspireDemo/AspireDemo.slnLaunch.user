@@ -3,12 +3,19 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "WorkManagement.API\\WorkManagement.API.csproj",
-        "Action": "Start"
+        "Path": "Worker.API\\Worker.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       },
       {
-        "Path": "Worker.API\\Worker.API.csproj",
-        "Action": "Start"
+        "Path": "WorkManagement.API\\WorkManagement.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "WorkSubmitPage\\WorkSubmitPage\\WorkSubmitPage.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }
