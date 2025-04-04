@@ -17,6 +17,8 @@ namespace WorkManagement.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.AddServiceDefaults();
+
             // Get the connection string from configuration
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -53,6 +55,8 @@ namespace WorkManagement.API
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 dbContext.Database.Migrate(); // Apply any pending migrations
             }
+
+            app.MapDefaultEndpoints();
 
             app.Run();
         }

@@ -14,6 +14,8 @@ namespace WorkSubmitPage
                 .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
+            builder.AddServiceDefaults();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,6 +39,8 @@ namespace WorkSubmitPage
                 .AddInteractiveServerRenderMode()
                 .AddInteractiveWebAssemblyRenderMode()
                 .AddAdditionalAssemblies(typeof(Client._Imports).Assembly);
+
+            app.MapDefaultEndpoints();
 
             app.Run();
         }
